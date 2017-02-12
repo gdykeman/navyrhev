@@ -1,0 +1,10 @@
+---
+rhevuser: gdykeman@fortnebula.com
+rhevpass: '!23qeASDzc'
+api: https://engine.fortnebula.com/ovirt-engine/api
+
+rheluser: admin
+rhelpass: 'ansible123'
+
+rhuser: gerald.dykeman
+rhpass: '!23qeASdzc'

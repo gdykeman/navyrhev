@@ -1,0 +1,5 @@
+---
+# vars file for deploy
+vms:
+  - testvm1
+  - testvm2

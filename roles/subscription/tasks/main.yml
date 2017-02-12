@@ -1,0 +1,21 @@
+---
+- name: register subscription
+  redhat_subscription:
+    state: present
+    username: "{{ rhuser}}"
+    password: "{{ rhpass }}"
+
+- pause:
+    seconds: 10
+
+- name: attach pool
+  command: subscription-manager attach --pool="{{ poolid }}"
+  ignore_errors: yes
+
+- name: add subscription repos
+  command: subscription-manager repos --enable rhel-7-server-rh-common-rpms
+  ignore_errors: yes
+
+- name: add rpm
+  command: rpm -iUvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+  ignore_errors: yes

@@ -1,0 +1,45 @@
+---
+- include_vars: pass.yml
+
+# tasks file for deploy
+- name: Obtain SSO token with username/password
+  ovirt_auth:
+    url: "{{ api }}"
+    username: "{{ rhevuser }}"
+    password: "{{ rhevpass }}"
+
+- name: Deploy VM
+  ovirt_vms:
+    auth: "{{ ovirt_auth }}"
+    state: present
+    cluster: Default
+    name: "{{ item }}"
+    template: rhel-7-base-template
+    type: server
+    clone: yes
+    wait: yes
+    cloud_init:
+      user_name: "{{ rheluser }}"
+      root_password: "{{ rhelpass }}"
+  with_items: "{{ vms }}"
+
+
+- name: pause for VM's to spin up
+  pause:
+    minutes: 2
+
+- ovirt_nics_facts:
+    auth: "{{ ovirt_auth }}"
+    vm: "{{ item }}"
+    name: eth0
+  with_items: "{{ vms }}"
+  register: nic
+
+- name: add hosts to in memory inventory
+  add_host:
+    name: "{{ item.item }}"
+    ansible_host: "{{ ovirt_nics[0].reported_devices[0].ips[0].address}}"
+    groups: new_hosts
+    ansible_ssh_user: root
+    ansible_ssh_pass: ansible
+  with_items: "{{ nic.results }}"

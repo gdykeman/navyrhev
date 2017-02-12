@@ -1,0 +1,10 @@
+---
+rhevuser: "{{ vault_rhevuser }}"
+rhevpass: "{{ vault_rhevpass }}"
+api: "{{ vault_api }}"
+
+rheluser: "{{ vault_rheluser }}"
+rhelpass: "{{ vault_rhelpass }}"
+
+rhuser: "{{ vault_rhuser }}"
+rhpass: "{{ vault_rhpass }}"

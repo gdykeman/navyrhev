@@ -8,3 +8,5 @@ rhelpass: "{{ vault_rhelpass }}"
 
 rhuser: "{{ vault_rhuser }}"
 rhpass: "{{ vault_rhpass }}"
+
+poolid: "{{ vault_poolid }}"

@@ -1,0 +1,7 @@
+---
+- name: Deploy VM's into RHEV
+  hosts: localhost
+  become: yes
+
+  roles:
+    - deploy
